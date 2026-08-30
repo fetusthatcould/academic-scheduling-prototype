@@ -1,0 +1,27 @@
+CourseNumber,CourseName,CourseDescription,Instructor,Credits,Prerequisites,Department
+ALCHEMY-301,Alchemical Studies,Introduction to alchemical principles including transmutation and the Philosopher's Stone,Professor Dumbledore,3,POTN-201,Applied Magical Sciences
+APPR-250,Apparition Training,Theory and practice of apparition with Ministry-certified instruction,Professor Twycross,2,,Applied Magical Sciences
+POTN-101,Introduction to Potions,Fundamentals of potion brewing including proper ingredient preparation and cauldron management,Professor Snape,4,,Applied Magical Sciences
+POTN-201,Intermediate Potions,Advanced brewing techniques and more complex potion recipes,Professor Snape,4,POTN-101,Applied Magical Sciences
+POTN-401,Advanced Potions: Elixirs,Complex potion brewing including Felix Felicis and Veritaserum with strict safety protocols,Professor Slughorn,4,POTN-201,Applied Magical Sciences
+MGGL-201,Muggle Studies,Examination of non-magical society technology and cultural practices,Professor Burbage,3,,Cultural Studies
+DADA-201,Intermediate Defense Against the Dark Arts,Defense strategies against intermediate dark magic and curses,Professor Lupin,3,,Dark Arts Studies
+DADA-301,Defense Against the Dark Arts,Advanced practical defense techniques including Patronus charms and combating dark creatures,Professor Lupin,3,DADA-201,Dark Arts Studies
+DADA-410,Dueling Club,Practical application of defensive and offensive spells in controlled dueling scenarios,Professor Lockhart,2,DADA-301,Dark Arts Studies
+CHRM-101,Charms and Enchantments,Basic charm work including levitation and summoning spells with practical applications,Professor Flitwick,3,,Fundamental Magic
+TRNS-101,Introduction to Transfiguration,Foundational transfiguration principles and basic object transformation,Professor McGonagall,3,,Fundamental Magic
+TRNS-201,Transfiguration II,Intermediate transfiguration theory and practice with focus on animate to inanimate transformations,Professor McGonagall,3,TRNS-101,Fundamental Magic
+TRNS-301,Advanced Transfiguration,Complex transfiguration including conjuration and vanishment,Professor McGonagall,4,TRNS-201,Fundamental Magic
+TRNS-401,Human Transfiguration,Advanced study of human transfiguration including Animagus theory,Professor McGonagall,4,TRNS-301,Fundamental Magic
+HIST-201,History of Magic: Goblin Wars,Comprehensive study of the goblin rebellions and their impact on modern wizarding society,Professor Binns,3,,Historical Studies
+CRTR-101,Introduction to Magical Creatures,Overview of common magical creatures and basic handling safety,Professor Hagrid,3,,Natural Magic
+CRTR-250,Care of Magical Creatures,Hands-on experience with magical creatures from Hippogriffs to Blast-Ended Skrewts,Professor Hagrid,3,CRTR-101,Natural Magic
+HERB-101,Introduction to Herbology,Basic magical plant identification and cultivation techniques,Professor Sprout,3,,Natural Magic
+HERB-202,Herbology: Dangerous Plants,Study and care of dangerous magical plants including Venomous Tentacula and Devil's Snare,Professor Sprout,4,HERB-101,Natural Magic
+FLIGHT-101,Introduction to Flying,Basic broomstick handling safety and control for first-time flyers,Madam Hooch,1,,Physical Magic
+QUID-300,Quidditch Tactics and Strategy,Advanced game theory and team strategies for competitive Quidditch play,Madam Hooch,2,FLIGHT-101,Physical Magic
+ANCT-201,Intermediate Ancient Runes,Study of runic alphabets and basic translation methods,Professor Babbling,3,,Theoretical Studies
+ANCT-305,Ancient Runes Translation,Advanced translation and interpretation of ancient magical texts and rune sequences,Professor Babbling,3,ANCT-201,Theoretical Studies
+ASTR-101,Introduction to Astronomy,Fundamentals of celestial observation and basic astronomical charts,Professor Sinistra,2,,Theoretical Studies
+ASTR-301,Advanced Astronomy,Planetary movements and their effects on spell casting with emphasis on lunar phases,Professor Sinistra,2,ASTR-101,Theoretical Studies
+DIVN-101,Introduction to Divination,Methods of fortune telling including tea leaves crystal balls and dream interpretation,Professor Trelawney,2,,Theoretical Studies

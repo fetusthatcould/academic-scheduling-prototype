@@ -2,6 +2,7 @@
 @rendermode InteractiveServer
 @implements IDisposable
 @inject SchedulingService Scheduler
+@inject IJSRuntime JS
 @using AcademicScheduler.Services
 @using AcademicScheduler.Models
 
@@ -17,17 +18,16 @@
 }
 
 <div class="row">
-    <div class="col-md-4">
-        <div class="list-group">
+    <div class="col-md-4 mb-3">
+        <select class="form-select form-select-lg" @onchange="OnStudentDropdownChanged">
+            <option value="">-- Select a Student --</option>
             @foreach (var student in Scheduler.Students)
             {
-                <button type="button"
-                        class="list-group-item list-group-item-action @(selectedStudent == student ? "active" : "")"
-                        @onclick="() => SelectStudent(student)">
+                <option value="@student.Id" selected="@(selectedStudent?.Id == student.Id)">
                     @student.Name
-                </button>
+                </option>
             }
-        </div>
+        </select>
     </div>
 
     <div class="col-md-8">
@@ -78,6 +78,19 @@
 @code {
     private Student? selectedStudent;
     private AssignmentResult? lastResult;
+    private void OnStudentDropdownChanged(ChangeEventArgs e)
+    {
+        var selectedId = e.Value?.ToString();
+        
+        if (string.IsNullOrWhiteSpace(selectedId))
+        {
+            SelectStudent(null);
+            return;
+        }
+
+        var student = Scheduler.Students.FirstOrDefault(s => s.Id == selectedId);
+        SelectStudent(student);
+    }
 
     private void SelectStudent(Student student)
     {
@@ -85,13 +98,17 @@
         lastResult = null;
     }
 
-    private void Assign(string courseId)
+    private async Task Assign(string courseId)
     {
         if (selectedStudent is null)
             return;
 
         lastResult = Scheduler.AssignStudent(selectedStudent.Id, courseId);
+
+        await JS.InvokeVoidAsync("window.scrollTo", 0, 0);
     }
+
+    
 
     protected override void OnInitialized()
     {

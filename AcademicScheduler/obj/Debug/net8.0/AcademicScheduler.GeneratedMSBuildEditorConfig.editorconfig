@@ -22,8 +22,8 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/ARUPSRC/WGU/TakeHome/academic-scheduling-prototype/AcademicScheduler/Components/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
+[C:/ARUPSRC/WGU/TakeHome/academic-scheduling-prototype/AcademicScheduler/Components/Pages/AssignmentDashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBc3NpZ25tZW50RGFzaGJvYXJkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/ARUPSRC/WGU/TakeHome/academic-scheduling-prototype/AcademicScheduler/Components/Pages/CourseCatalog.razor]
@@ -40,10 +40,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/ARUPSRC/WGU/TakeHome/academic-scheduling-prototype/AcademicScheduler/Components/Pages/StudentList.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTdHVkZW50TGlzdC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/ARUPSRC/WGU/TakeHome/academic-scheduling-prototype/AcademicScheduler/Components/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xXZWF0aGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/ARUPSRC/WGU/TakeHome/academic-scheduling-prototype/AcademicScheduler/Components/Routes.razor]

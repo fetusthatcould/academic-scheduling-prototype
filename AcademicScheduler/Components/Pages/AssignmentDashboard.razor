@@ -1,0 +1,105 @@
+@page "/assign"
+@rendermode InteractiveServer
+@implements IDisposable
+@inject SchedulingService Scheduler
+@using AcademicScheduler.Services
+@using AcademicScheduler.Models
+
+<PageTitle>Assignment Dashboard</PageTitle>
+
+<h1>Assignment Dashboard</h1>
+
+@if (lastResult is not null)
+{
+    <div class="alert @(lastResult.IsSuccess ? "alert-success" : "alert-danger")" role="alert">
+        @(lastResult.IsSuccess ? "Assignment successful" : lastResult.ErrorMessage)
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="list-group">
+            @foreach (var student in Scheduler.Students)
+            {
+                <button type="button"
+                        class="list-group-item list-group-item-action @(selectedStudent == student ? "active" : "")"
+                        @onclick="() => SelectStudent(student)">
+                    @student.Name
+                </button>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        @if (selectedStudent is null)
+        {
+            <p>Select a student to view their profile.</p>
+        }
+        else
+        {
+            <h3>@selectedStudent.Name</h3>
+            <p><strong>Year Level:</strong> @selectedStudent.YearLevel</p>
+            <p><strong>Current Credit Load:</strong> @selectedStudent.CurrentCreditLoad</p>
+            <p><strong>Completed Courses:</strong> @string.Join(", ", selectedStudent.CompletedCoursesRaw.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))</p>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Instructor</th>
+                        <th>Credits</th>
+                        <th>Available Seats</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var course in Scheduler.Courses)
+                    {
+                        <tr>
+                            <td>@course.Id</td>
+                            <td>@course.Name</td>
+                            <td>@course.Department</td>
+                            <td>@course.Instructor</td>
+                            <td>@course.Credits</td>
+                            <td>@course.AvailableSeats</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" @onclick="() => Assign(course.Id)">Assign</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+@code {
+    private Student? selectedStudent;
+    private AssignmentResult? lastResult;
+
+    private void SelectStudent(Student student)
+    {
+        selectedStudent = student;
+        lastResult = null;
+    }
+
+    private void Assign(string courseId)
+    {
+        if (selectedStudent is null)
+            return;
+
+        lastResult = Scheduler.AssignStudent(selectedStudent.Id, courseId);
+    }
+
+    protected override void OnInitialized()
+    {
+        Scheduler.OnStateChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        Scheduler.OnStateChanged -= StateHasChanged;
+    }
+}

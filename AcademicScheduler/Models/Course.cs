@@ -12,3 +12,5 @@ public class Course
     public int EnrolledCount { get; set; }
     public int AvailableSeats => MaxCapacity - EnrolledCount;
 }
+
+

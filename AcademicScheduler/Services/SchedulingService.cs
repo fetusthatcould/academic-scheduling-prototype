@@ -67,23 +67,29 @@ public class SchedulingService
             if (course is null)
                 return new AssignmentResult { IsSuccess = false, ErrorMessage = "Course not found" };
 
+
+            //  Duplicate Assignment Prevention
             if (student.AssignedCourses.Any(c => c.Id == course.Id))
                 return new AssignmentResult { IsSuccess = false, ErrorMessage = "Student already enrolled" };
 
+            //  Capacity Validation
             if (course.AvailableSeats <= 0)
                 return new AssignmentResult { IsSuccess = false, ErrorMessage = "Course is full" };
 
-            var completed = student.CompletedCoursesRaw.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            // Prerequisite Tokenization and Comparison
+            var completed = student.CompletedCoursesRaw.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             var prereqs = course.PrerequisitesRaw.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             foreach (var prereq in prereqs)
             {
-                if (!completed.Contains(prereq))
+                if (!completed.Contains(prereq, StringComparer.OrdinalIgnoreCase))
                     return new AssignmentResult { IsSuccess = false, ErrorMessage = $"Prerequisite missing: {prereq}" };
             }
 
+                //  Maximum Credit Load Check 
             if (student.CurrentCreditLoad + course.Credits > 18)
                 return new AssignmentResult { IsSuccess = false, ErrorMessage = "Credit limit exceeded" };
 
+            // State Mutation and Event Trigger
             student.AssignedCourses.Add(course);
             course.EnrolledCount++;
 

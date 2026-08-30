@@ -81,7 +81,7 @@
     private void OnStudentDropdownChanged(ChangeEventArgs e)
     {
         var selectedId = e.Value?.ToString();
-        
+
         if (string.IsNullOrWhiteSpace(selectedId))
         {
             SelectStudent(null);
@@ -92,7 +92,7 @@
         SelectStudent(student);
     }
 
-    private void SelectStudent(Student student)
+    private void SelectStudent(Student? student)
     {
         selectedStudent = student;
         lastResult = null;
@@ -107,8 +107,6 @@
 
         await JS.InvokeVoidAsync("window.scrollTo", 0, 0);
     }
-
-    
 
     protected override void OnInitialized()
     {

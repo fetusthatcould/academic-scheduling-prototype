@@ -67,12 +67,11 @@ public class SchedulingService
             if (course is null)
                 return new AssignmentResult { IsSuccess = false, ErrorMessage = "Course not found" };
 
-
-            //  Duplicate Assignment Prevention
+            // Duplicate Assignment Prevention
             if (student.AssignedCourses.Any(c => c.Id == course.Id))
                 return new AssignmentResult { IsSuccess = false, ErrorMessage = "Student already enrolled" };
 
-            //  Capacity Validation
+            // Capacity Validation
             if (course.AvailableSeats <= 0)
                 return new AssignmentResult { IsSuccess = false, ErrorMessage = "Course is full" };
 
@@ -85,7 +84,7 @@ public class SchedulingService
                     return new AssignmentResult { IsSuccess = false, ErrorMessage = $"Prerequisite missing: {prereq}" };
             }
 
-                //  Maximum Credit Load Check 
+            // Maximum Credit Load Check
             if (student.CurrentCreditLoad + course.Credits > 18)
                 return new AssignmentResult { IsSuccess = false, ErrorMessage = "Credit limit exceeded" };
 
@@ -98,35 +97,33 @@ public class SchedulingService
         }
     }
     public AssignmentResult UnenrollStudent(string studentId, string courseId)
-{
-    lock (_syncRoot)
     {
-        var student = Students.FirstOrDefault(s => s.Id == studentId);
-        if (student is null)
-            return new AssignmentResult { IsSuccess = false, ErrorMessage = "Student not found" };
-
-        var course = Courses.FirstOrDefault(c => c.Id == courseId);
-        if (course is null)
-            return new AssignmentResult { IsSuccess = false, ErrorMessage = "Course not found" };
-
-        // Verify the student is actually enrolled in this course
-        var enrolledCourse = student.AssignedCourses.FirstOrDefault(c => c.Id == course.Id);
-        if (enrolledCourse is null)
-            return new AssignmentResult { IsSuccess = false, ErrorMessage = "Student is not enrolled in this course" };
-
-        // State Mutation
-        student.AssignedCourses.Remove(enrolledCourse);
-        
-        // Defensive check to prevent negative capacity
-        if (course.EnrolledCount > 0)
+        lock (_syncRoot)
         {
-            course.EnrolledCount--;
-        }
+            var student = Students.FirstOrDefault(s => s.Id == studentId);
+            if (student is null)
+                return new AssignmentResult { IsSuccess = false, ErrorMessage = "Student not found" };
 
-        // Trigger UI refresh
-        OnStateChanged?.Invoke();
-        
-        return new AssignmentResult { IsSuccess = true };
+            var course = Courses.FirstOrDefault(c => c.Id == courseId);
+            if (course is null)
+                return new AssignmentResult { IsSuccess = false, ErrorMessage = "Course not found" };
+
+            // Verify the student is actually enrolled in this course
+            var enrolledCourse = student.AssignedCourses.FirstOrDefault(c => c.Id == course.Id);
+            if (enrolledCourse is null)
+                return new AssignmentResult { IsSuccess = false, ErrorMessage = "Student is not enrolled in this course" };
+
+            // State Mutation
+            student.AssignedCourses.Remove(enrolledCourse);
+
+            // Defensive check to prevent negative capacity
+            if (course.EnrolledCount > 0)
+                course.EnrolledCount--;
+
+            // Trigger UI refresh
+            OnStateChanged?.Invoke();
+
+            return new AssignmentResult { IsSuccess = true };
+        }
     }
-}
 }

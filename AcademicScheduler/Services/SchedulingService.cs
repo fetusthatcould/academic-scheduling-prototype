@@ -1,20 +1,24 @@
 using System.Globalization;
 using AcademicScheduler.Models;
 using CsvHelper;
+using Microsoft.Extensions.Logging;
 
 namespace AcademicScheduler.Services;
 
 public class SchedulingService
 {
     private readonly object _syncRoot = new();
+    private readonly ILogger<SchedulingService> _logger;
 
     public List<Student> Students { get; } = new();
     public List<Course> Courses { get; } = new();
 
     public event Action? OnStateChanged;
 
-    public SchedulingService()
+    public SchedulingService(ILogger<SchedulingService> logger)
     {
+        _logger = logger;
+
         var coursesPath = Path.Combine(AppContext.BaseDirectory, "data", "courses-starter.csv");
         var studentsPath = Path.Combine(AppContext.BaseDirectory, "data", "students-starter.csv");
 
@@ -91,6 +95,8 @@ public class SchedulingService
             // State Mutation and Event Trigger
             student.AssignedCourses.Add(course);
             course.EnrolledCount++;
+
+            _logger.LogInformation("Student {StudentId} assigned to course {CourseId}; EnrolledCount now {EnrolledCount}", student.Id, course.Id, course.EnrolledCount);
 
             OnStateChanged?.Invoke();
             return new AssignmentResult { IsSuccess = true };

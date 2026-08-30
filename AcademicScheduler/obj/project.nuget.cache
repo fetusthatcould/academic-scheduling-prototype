@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "hwjtbmTe36o=",
+  "dgSpecHash": "0GO9Oh1u/ZA=",
   "success": true,
   "projectFilePath": "C:\\ARUPSRC\\WGU\\TakeHome\\academic-scheduling-prototype\\AcademicScheduler\\AcademicScheduler.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\26706\\.nuget\\packages\\csvhelper\\33.0.1\\csvhelper.33.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -25,7 +25,7 @@ Place all classes in the `Models/` folder:
 - `Instructor` (string)
 - `Credits` (int)
 - `MaxCapacity` (int)
-- `PrerequisitesRaw` (string) - Raw comma-separated string from CSV
+- `PrerequisitesRaw` (string) 
 - `EnrolledCount` (int) - Default 0
 - `AvailableSeats` (int) - Calculated: `MaxCapacity - EnrolledCount`
 
@@ -33,7 +33,7 @@ Place all classes in the `Models/` folder:
 - `Id` (string)
 - `Name` (string)
 - `YearLevel` (string)
-- `CompletedCoursesRaw` (string) - Raw comma-separated string from CSV
+- `CompletedCoursesRaw` (string) 
 - `AssignedCourses` (List<Course>) - Initializes empty list
 - `CurrentCreditLoad` (int) - Calculated: Sum of credits in `AssignedCourses`
 

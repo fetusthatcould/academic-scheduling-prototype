@@ -1,0 +1,67 @@
+@page "/courses"
+@rendermode InteractiveServer
+@implements IDisposable
+@inject SchedulingService Scheduler
+@using AcademicScheduler.Services
+@using AcademicScheduler.Models
+
+<PageTitle>Course Catalog</PageTitle>
+
+<h1>Course Catalog</h1>
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <label for="departmentFilter" class="form-label">Department</label>
+        <input id="departmentFilter" class="form-control" @bind="departmentFilter" @bind:event="oninput" />
+    </div>
+    <div class="col-md-4">
+        <label for="instructorFilter" class="form-label">Instructor</label>
+        <input id="instructorFilter" class="form-control" @bind="instructorFilter" @bind:event="oninput" />
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Instructor</th>
+            <th>Credits</th>
+            <th>Available Seats</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in FilteredCourses)
+        {
+            <tr>
+                <td>@course.Id</td>
+                <td>@course.Name</td>
+                <td>@course.Department</td>
+                <td>@course.Instructor</td>
+                <td>@course.Credits</td>
+                <td>@course.AvailableSeats</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private string departmentFilter = string.Empty;
+    private string instructorFilter = string.Empty;
+
+    private IEnumerable<Course> FilteredCourses =>
+        Scheduler.Courses.Where(c =>
+            c.Department.Contains(departmentFilter, StringComparison.OrdinalIgnoreCase) &&
+            c.Instructor.Contains(instructorFilter, StringComparison.OrdinalIgnoreCase));
+
+    protected override void OnInitialized()
+    {
+        Scheduler.OnStateChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        Scheduler.OnStateChanged -= StateHasChanged;
+    }
+}

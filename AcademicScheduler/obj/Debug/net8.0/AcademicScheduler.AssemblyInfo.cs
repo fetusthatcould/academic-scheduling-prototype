@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AcademicScheduler")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7284a1002001bfca1384f73752183053cba8ea44")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+483cf416e413b42765bc700cffa711b5641b9c17")]
 [assembly: System.Reflection.AssemblyProductAttribute("AcademicScheduler")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AcademicScheduler")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

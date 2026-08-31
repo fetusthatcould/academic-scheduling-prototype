@@ -35,7 +35,6 @@
         }
         else
         {
-            <h3>@selectedStudent.Name</h3>
             <p><strong>Year Level:</strong> @selectedStudent.YearLevel</p>
             <p><strong>Current Credit Load:</strong> @selectedStudent.CurrentCreditLoad</p>
             <p><strong>Completed Courses:</strong> @string.Join(", ", selectedStudent.CompletedCoursesRaw.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))</p>
@@ -106,13 +105,20 @@
         await JS.InvokeVoidAsync("window.scrollTo", 0, 0);
     }
 
-    protected override void OnInitialized()
+   
+    private void OnStateChangedHandler()
     {
-        Scheduler.OnStateChanged += StateHasChanged;
+        InvokeAsync(StateHasChanged);
     }
 
+    protected override void OnInitialized()
+    {
+        Scheduler.OnStateChanged += OnStateChangedHandler;
+    }
+
+    // Replace your existing Dispose with this
     public void Dispose()
     {
-        Scheduler.OnStateChanged -= StateHasChanged;
+        Scheduler.OnStateChanged -= OnStateChangedHandler;
     }
 }

@@ -102,6 +102,7 @@ public class SchedulingService
             return new AssignmentResult { IsSuccess = true };
         }
     }
+    //Unused method, but keeping it for potential future use
     public AssignmentResult UnenrollStudent(string studentId, string courseId)
     {
         lock (_syncRoot)
